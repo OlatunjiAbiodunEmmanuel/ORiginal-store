@@ -36,6 +36,10 @@ const Horizontal = () => {
 };
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
+
+
+
+  
   const { handleAddProductToCart, cartProducts } = useCart();
   const [isProductInCart, setIsProductInCart] = useState(false);
   const [cartProduct, setCartProduct] = useState<CartProductType>({
