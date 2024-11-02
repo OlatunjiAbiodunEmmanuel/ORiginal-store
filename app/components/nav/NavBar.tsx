@@ -4,6 +4,7 @@ import Container from "../Container";
 import Link from "next/link";
 import Image from "next/image";
 import CartCount from "./CartCount";
+import UserMenu from "./UserMenu";
 
 
 const NavBar = () => {
@@ -16,7 +17,7 @@ const NavBar = () => {
             <div className="hidden md:block">Search</div>
             <div className="flex gap-8 items-center md:gap-12">
               <div><CartCount/></div>
-              <div>UserMenu</div>
+             <UserMenu/>
             </div>
           </div>
         </Container>

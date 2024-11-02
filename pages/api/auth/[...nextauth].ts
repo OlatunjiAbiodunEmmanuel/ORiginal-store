@@ -4,9 +4,10 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/libs/prismadb";
 import bcrypt from "bcrypt";
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 
-export default NextAuth ( {
+
+export const authOptions: AuthOptions= {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -44,4 +45,6 @@ export default NextAuth ( {
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
   
-});
+}
+
+export default NextAuth (authOptions );
