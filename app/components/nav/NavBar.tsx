@@ -1,13 +1,16 @@
-'use client'
+
 import React from "react";
 import Container from "../Container";
 import Link from "next/link";
 import Image from "next/image";
 import CartCount from "./CartCount";
 import UserMenu from "./UserMenu";
+import { getCurrentUser } from "@/actions/getCurrentUser";
 
 
-const NavBar = () => {
+const NavBar = async () => {
+  const currentUser = await getCurrentUser();
+  console.log("user>>>", currentUser)
   return (
     <div className="sticky top-0 w-full bg-slate-200 z-30 shadow-sm">
       <div className="py-4 border-b-[1px]">
@@ -17,7 +20,7 @@ const NavBar = () => {
             <div className="hidden md:block">Search</div>
             <div className="flex gap-8 items-center md:gap-12">
               <div><CartCount/></div>
-             <UserMenu/>
+             <UserMenu currentUser={currentUser}/>
             </div>
           </div>
         </Container>

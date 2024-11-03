@@ -4,15 +4,16 @@ import ProductDetails from "./ProductDetails";
 import ListRating from "./ListRating";
 import { products } from "@/utilis/products";
 
-interface ProductPageProps {
-  params: { productid: string };
+interface IParams {
+  productid?: string;
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
+const ProductPage = ({ params }: { params: IParams }) => {
+
   const product = products.find((product) => product.id === params.productid);
 
   if (!product) {
-    return <div>Product not found</div>; // Handle case where product is not found
+    return <div>Product not found</div>; 
   }
 
   return (

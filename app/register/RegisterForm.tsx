@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
@@ -10,8 +10,26 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { SafeUser } from "@/types";
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+  currentUser: SafeUser | null;
+}
+
+const RegisterForm = ({ currentUser }: RegisterFormProps) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/cart");
+      router.refresh();
+    }
+  }, []);
+
+  if (currentUser) {
+    return <p className="text-center">Alreday Registered. Redirecting ...</p>;
+  }
+
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -24,11 +42,12 @@ const RegisterForm = () => {
       password: "",
     },
   });
-  const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    axios.post('/api/register', data).then(() => {
+    axios
+      .post("/api/register", data)
+      .then(() => {
         toast.success("Account Created");
 
         signIn("credentials", {
@@ -54,7 +73,6 @@ const RegisterForm = () => {
         setIsLoading(false);
       });
   };
-  
 
   return (
     <>
